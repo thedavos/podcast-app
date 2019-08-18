@@ -1,3 +1,4 @@
+import fetch from "isomorphic-fetch";
 import Error from "./_error";
 import Layout from "../components/Layout";
 import PodcastPlayer from "../components/PodcastPlayer";

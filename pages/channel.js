@@ -1,4 +1,5 @@
 import { useState } from "react";
+import fetch from "isomorphic-fetch";
 import Layout from "../components/Layout";
 import ChannelHeader from "../components/Channel/ChannelHeader";
 import ChannelChooser from "../components/Channel/ChannelChooser";
@@ -17,8 +18,6 @@ export default function Channel(props) {
   const [openPodCast, setPodcast] = useState(null);
 
   const handleClickSetPodcast = (ev, podcast) => {
-    console.log(podcast);
-
     ev.preventDefault();
     setPodcast(podcast);
   };
@@ -64,6 +63,7 @@ export default function Channel(props) {
 
 Channel.getInitialProps = async ({ query, res }) => {
   const idChannel = query.id;
+
   try {
     const [reqChannel, reqSeries, reqAudios] = await Promise.all([
       fetch(`https://api.audioboom.com/channels/${idChannel}`),

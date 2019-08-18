@@ -2,13 +2,11 @@
 
 App de podcasts integrada con la api de AudioBoom para aprender el framework que trabaja sobre React: Next.js
 
-[Mira la aplicación!]()
+[Mira la aplicación!](https://podcast-app-git-master.davos.now.sh/)
 
-![Captura de la app en modo responsive](./.readme-static/home.png)
-![Captura de la app en modo responsive](./.readme-static/home-responsive.png)
-![Captura de la app en modo responsive](./.readme-static/channel.png)
-![Captura de la app en modo responsive](./.readme-static/channel-responsive.png)
-![Captura de la app en modo responsive](./.readme-static/podcast-responsive.png)
+<img src="./.readme-static/home.png">
+<img src="./.readme-static/channel.png">
+<img src="./.readme-static/podcast-responsive.png">
 
 ## Cómo empezar
 

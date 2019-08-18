@@ -1,32 +1,40 @@
+import Error from "./_error";
+import Layout from "../components/Layout";
+import PodcastPlayer from "../components/PodcastPlayer";
+
 export default function Podcast(props) {
-  console.log(props);
-  const { audio_clip } = props;
+  const { audio_clip, statusCode } = props;
+
+  if (statusCode !== 200) {
+    return <Error statusCode={statusCode} />;
+  }
+
   return (
-    <div className="podcast-layout">
-      <div className="go-back">
-        <span>Volver</span>
-      </div>
-      <figure className="podcast-image">
-        {/* <img src={audio_clip.urls.image} alt={audio_clip.title} /> */}
-      </figure>
-      <div className="podcast-audio">
-        <h1 />
-        <p />
-        <audio src={audio_clip.urls.high_mp3} controls />
-      </div>
-    </div>
+    <Layout header={false}>
+      <PodcastPlayer clip={audio_clip} />
+    </Layout>
   );
 }
 
-Podcast.getInitialProps = async ({ query }) => {
+Podcast.getInitialProps = async ({ query, res }) => {
   const idClip = query.id;
 
-  const req = await fetch(
-    `https://api.audioboom.com/audio_clips/${idClip}.mp3`
-  );
-  const {
-    body: { audio_clip }
-  } = await req.json();
+  try {
+    const req = await fetch(
+      `https://api.audioboom.com/audio_clips/${idClip}.mp3`
+    );
 
-  return { audio_clip };
+    if (req.status >= 400) {
+      res.statusCode = req.status;
+      return { audio_clip: null, statusCode: req.status };
+    }
+
+    const {
+      body: { audio_clip }
+    } = await req.json();
+
+    return { audio_clip, statusCode: 200 };
+  } catch (error) {
+    return { audio_clip: null, statusCode: 503 };
+  }
 };
